@@ -54,6 +54,10 @@ const myFavoriteArtists = [
   {
     name: "Jason Mraz",
     id: "K8vZ9171CVV"
+  },
+  {
+    name: "H Lim",
+    id: "L888KW2229H"
   }
 ];
 
