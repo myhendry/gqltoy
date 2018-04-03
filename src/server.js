@@ -2,8 +2,12 @@ const express = require("express");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 const bodyParser = require("body-parser");
 const { ApolloEngine } = require("apollo-engine");
+const { makeExecutableSchema } = require("graphql-tools");
 
-const { schema } = require("./schema");
+const { typeDefs } = require("./graphql/schema");
+const { resolvers } = require("./graphql/resolvers/example");
+// const typeDefs = require("./graphql/schema");
+// const { schema } = require("./graphql/schema");
 
 const app = express();
 
@@ -18,6 +22,12 @@ if (!process.env.ENGINE_API_KEY) {
     "Please provide an API key for Apollo Engine in the environment variable ENGINE_API_KEY."
   );
 }
+
+// Required: Export the GraphQL.js schema object as "schema"
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
 
 app.post(
   "/graphql",
