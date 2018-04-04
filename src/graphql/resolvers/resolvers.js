@@ -1,5 +1,7 @@
 import fetch from "node-fetch";
 
+import Tweet from "../../models/Tweet";
+
 export const resolvers = {
   Query: {
     myFavoriteArtists: (root, args, context) => {
@@ -16,6 +18,17 @@ export const resolvers = {
             });
         })
       );
+    }
+  },
+  Mutation: {
+    addTweet: async (root, args, context) => {
+      try {
+        const tweet = await Tweet.create({ ...args });
+
+        return tweet;
+      } catch (error) {
+        throw error;
+      }
     }
   },
   Artist: {
@@ -42,21 +55,9 @@ export const resolvers = {
   }
 };
 
+// A list of artists for whom I want to know about upcoming events
 const myFavoriteArtists = [
-  {
-    name: "Kansas",
-    id: "K8vZ9171C-f"
-  },
-  {
-    name: "Lil Yachty",
-    id: "K8vZ9174v57"
-  },
-  {
-    name: "Jason Mraz",
-    id: "K8vZ9171CVV"
-  },
-  {
-    name: "H Lim",
-    id: "L888KW2229H"
-  }
+  { name: "Kansas", id: "K8vZ9171C-f" },
+  { name: "Lil Yachty", id: "K8vZ9174v57" },
+  { name: "Jason Mraz", id: "K8vZ9171CVV" }
 ];

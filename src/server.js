@@ -6,7 +6,9 @@ import { makeExecutableSchema } from "graphql-tools";
 
 import "./config/db";
 import { typeDefs } from "./graphql/schema";
-import { resolvers } from "./graphql/resolvers";
+// import { resolvers } from "./graphql/resolvers";
+// import { resolvers } from "./graphql/resolvers/artist-resolvers";
+import { resolvers } from "./graphql/resolvers/resolvers";
 
 const app = express();
 

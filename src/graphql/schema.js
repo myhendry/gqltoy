@@ -43,11 +43,26 @@ export const typeDefs = gql`
     updatedAt: Date!
   }
 
+  type Artist @cacheControl(maxAge: 60) {
+    id: ID
+    name: String
+    image: String
+    twitterUrl: String
+    events: [Event]
+  }
+
+  type Event @cacheControl(maxAge: 60) {
+    name: String
+    image: String
+    startDateTime: String
+  }
+
   type Query {
     getTweet(_id: ID!): Tweet
     getTweets: [Tweet]
     getUserTweets: [Tweet]
     me: Me
+    myFavoriteArtists: [Artist]
   }
 
   type Mutation {
