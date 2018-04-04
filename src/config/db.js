@@ -15,18 +15,8 @@ if (process.env.NODE_ENV === "production") {
     mongoose.createConnection(constants.MONGO_URI);
   }
 } else {
-  // mongoose.connect(constants.DB_URL);
-  mongoose.connect(constants.MONGO_URI);
+  mongoose.connect(constants.DB_URL);
 }
-
-// try {
-//   if (process.env.NODE_ENV === "production") {
-//     mongoose.connect(constants.MONGO_URI);
-//   }
-//   mongoose.connect(constants.DB_URL);
-// } catch (err) {
-
-// }
 
 mongoose.connection
   .once("open", () => console.log("MongoDB Running"))

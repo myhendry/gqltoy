@@ -1,12 +1,12 @@
-const express = require("express");
-const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
-const bodyParser = require("body-parser");
-const { ApolloEngine } = require("apollo-engine");
-const { makeExecutableSchema } = require("graphql-tools");
+import express from "express";
+import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
+import bodyParser from "body-parser";
+import { ApolloEngine } from "apollo-engine";
+import { makeExecutableSchema } from "graphql-tools";
 
 import "./config/db";
-const { typeDefs } = require("./graphql/schema");
-const { resolvers } = require("./graphql/resolvers");
+import { typeDefs } from "./graphql/schema";
+import { resolvers } from "./graphql/resolvers";
 
 const app = express();
 
