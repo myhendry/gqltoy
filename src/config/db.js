@@ -9,6 +9,9 @@ mongoose.Promise = global.Promise;
 mongoose.set("debug", true); // debug mode on
 
 try {
+  if (process.env.NODE_ENV === "production") {
+    mongoose.connect(constants.MONGO_URI);
+  }
   mongoose.connect(constants.DB_URL);
 } catch (err) {
   mongoose.createConnection(constants.DB_URL);

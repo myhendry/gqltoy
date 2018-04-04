@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const resolvers = {
+export const resolvers = {
   Query: {
     myFavoriteArtists: (root, args, context) => {
       return Promise.all(
@@ -60,5 +60,3 @@ const myFavoriteArtists = [
     id: "L888KW2229H"
   }
 ];
-
-module.exports = { resolvers };
