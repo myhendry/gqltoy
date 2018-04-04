@@ -4,11 +4,10 @@ import bodyParser from "body-parser";
 import { ApolloEngine } from "apollo-engine";
 import { makeExecutableSchema } from "graphql-tools";
 
+import CONSTANTS from "../src/config/constants";
 import "./config/db";
 import { typeDefs } from "./graphql/schema";
-// import { resolvers } from "./graphql/resolvers";
-// import { resolvers } from "./graphql/resolvers/artist-resolvers";
-import { resolvers } from "./graphql/resolvers/resolvers";
+import { resolvers } from "./graphql/resolvers";
 
 const app = express();
 
@@ -68,10 +67,13 @@ app.get(
 
 app.use(express.static("public"));
 
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 
 const engine = new ApolloEngine({
   apiKey: process.env.ENGINE_API_KEY,
+  // logging: {
+  //   level: "DEBUG"
+  // },
   stores: [
     {
       name: "publicResponseCache",
@@ -88,10 +90,12 @@ const engine = new ApolloEngine({
 // Start the app
 engine.listen(
   {
-    port: PORT,
+    port: CONSTANTS.PORT,
     expressApp: app
   },
   () => {
-    console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`);
+    console.log(
+      `Go to http://localhost:${CONSTANTS.PORT}/graphiql to run queries!`
+    );
   }
 );

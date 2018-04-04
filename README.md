@@ -1,3 +1,6 @@
-# Heroku deployment example
+TO-DO
 
-TODO read the blog post
+CRUD
+Authentication
+Subscriptions
+Eslint & Prettier
