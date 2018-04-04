@@ -4,10 +4,9 @@ const bodyParser = require("body-parser");
 const { ApolloEngine } = require("apollo-engine");
 const { makeExecutableSchema } = require("graphql-tools");
 
+import "./config/db";
 const { typeDefs } = require("./graphql/schema");
-const { resolvers } = require("./graphql/resolvers/example");
-// const typeDefs = require("./graphql/schema");
-// const { schema } = require("./graphql/schema");
+const { resolvers } = require("./graphql/resolvers");
 
 const app = express();
 
@@ -49,19 +48,19 @@ const gql = String.raw;
 app.get(
   "/graphiql",
   graphiqlExpress({
-    endpointURL: "/graphql",
-    query: gql`
-      query UpcomingEvents {
-        myFavoriteArtists {
-          name
-          twitterUrl
-          events {
-            name
-            startDateTime
-          }
-        }
-      }
-    `
+    endpointURL: "/graphql"
+    // query: gql`
+    //   query UpcomingEvents {
+    //     myFavoriteArtists {
+    //       name
+    //       twitterUrl
+    //       events {
+    //         name
+    //         startDateTime
+    //       }
+    //     }
+    //   }
+    // `
   })
 );
 
