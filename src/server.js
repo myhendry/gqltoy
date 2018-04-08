@@ -11,6 +11,8 @@ import { resolvers } from "./graphql/resolvers";
 
 const app = express();
 
+require("dotenv").config();
+
 if (!process.env.TM_API_KEY) {
   throw new Error(
     "Please provide an API key for Ticketmaster in the environment variable TM_API_KEY."

@@ -57,12 +57,32 @@ export const typeDefs = gql`
     startDateTime: String
   }
 
+  type Person {
+    name: String
+    height: String
+    mass: String
+    hair_color: String
+    skin_color: String
+    eye_color: String
+    birth_year: String
+    gender: String
+    films: [Film]
+  }
+
+  type Film {
+    title: String
+    episode_id: Int
+    director: String
+    producer: String
+  }
+
   type Query {
     getTweet(_id: ID!): Tweet
     getTweets: [Tweet]
     getUserTweets: [Tweet]
     me: Me
     myFavoriteArtists: [Artist]
+    getPerson(id: Int!): Person
   }
 
   type Mutation {

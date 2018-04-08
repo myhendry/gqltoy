@@ -1,5 +1,5 @@
 export default {
-  PORT: process.env.PORT || 3000,
+  PORT: process.env.PORT || 5000,
   DB_URL: "mongodb://localhost/gqltoy",
   MONGO_URI: process.env.MONGO_URI,
   GRAPHQL_PATH: "/graphql",

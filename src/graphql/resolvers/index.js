@@ -21,6 +21,10 @@ export const resolvers = {
             });
         })
       );
+    },
+    getPerson: async (root, { id }, context) => {
+      const response = await fetch(`https://swapi.co/api/people/${id}/`);
+      return response.json();
     }
   },
   Mutation: {
