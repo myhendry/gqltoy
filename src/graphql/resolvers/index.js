@@ -25,6 +25,22 @@ export const resolvers = {
     getPerson: async (root, { id }, context) => {
       const response = await fetch(`https://swapi.co/api/people/${id}/`);
       return response.json();
+    },
+    getTweets: (root, args, context) => {
+      try {
+        const tweets = Tweet.find({}).sort({ createdAt: -1 });
+        return tweets;
+      } catch (error) {
+        throw error;
+      }
+    },
+    getTweet: (root, { _id }, context) => {
+      try {
+        const tweet = Tweet.findById(_id);
+        return tweet;
+      } catch (error) {
+        throw error;
+      }
     }
   },
   Mutation: {
@@ -33,6 +49,40 @@ export const resolvers = {
         const tweet = await Tweet.create({ ...args });
 
         return tweet;
+      } catch (error) {
+        throw error;
+      }
+    },
+    updateTweet: async (root, { _id, ...rest }, context) => {
+      try {
+        const tweet = await Tweet.findOne({ _id });
+
+        if (!tweet) {
+          throw new Error("Not Found!");
+        }
+
+        Object.entries(rest).forEach(([key, value]) => {
+          tweet[key] = value;
+        });
+
+        return tweet.save();
+      } catch (error) {
+        throw error;
+      }
+    },
+    deleteTweet: async (root, { _id }, context) => {
+      try {
+        const tweet = await Tweet.findOne({ _id });
+
+        if (!tweet) {
+          throw new Error("Not Found!");
+        }
+
+        await tweet.remove();
+
+        return {
+          message: "Delete Success!"
+        };
       } catch (error) {
         throw error;
       }
