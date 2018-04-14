@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import GraphQLDate from "graphql-date";
 
 import Tweet from "../../models/Tweet";
-import Score from '../../models/Score';
+import Score from "../../models/Score";
 
 export const resolvers = {
   Date: GraphQLDate,
@@ -42,6 +42,14 @@ export const resolvers = {
       } catch (error) {
         throw error;
       }
+    },
+    getScores: (root, args, context) => {
+      try {
+        const scores = Score.find({}).sort({ createdAt: -1 });
+        return scores;
+      } catch (error) {
+        throw error;
+      }
     }
   },
   Mutation: {
@@ -54,13 +62,13 @@ export const resolvers = {
         throw error;
       }
     },
-    createScore: (root, args, context) => {
+    createScore: async (root, args, context) => {
       try {
-        const score = await Score.create({ ...args});
-        
-        return score 
+        const score = await Score.create({ ...args });
+
+        return score;
       } catch (error) {
-        throw error
+        throw error;
       }
     },
     updateTweet: async (root, { _id, ...rest }, context) => {

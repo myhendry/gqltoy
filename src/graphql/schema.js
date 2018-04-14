@@ -88,6 +88,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    getScores: [Score]
     getTweet(_id: ID!): Tweet
     getTweets: [Tweet]
     getUserTweets: [Tweet]
