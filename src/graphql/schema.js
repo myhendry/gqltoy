@@ -4,6 +4,7 @@ export const typeDefs = gql`
   scalar Date
 
   type Status {
+    id: ID!
     message: String!
   }
 

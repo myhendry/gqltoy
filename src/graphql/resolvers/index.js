@@ -81,6 +81,7 @@ export const resolvers = {
         await tweet.remove();
 
         return {
+          id: _id,
           message: "Delete Success!"
         };
       } catch (error) {
