@@ -46,10 +46,10 @@ export const typeDefs = gql`
 
   type Score {
     _id: ID!
-    teamAName: String
-    teamBName: String
-    teamAScore: String
-    teamBScore: String
+    teamAName: String!
+    teamBName: String!
+    teamAScore: Int!
+    teamBScore: Int!
     createdAt: Date!
     updatedAt: Date!
   }
@@ -101,8 +101,8 @@ export const typeDefs = gql`
     createScore(
       teamAName: String
       teamBName: String
-      teamAScore: String
-      teamBScore: String
+      teamAScore: Int!
+      teamBScore: Int!
     ): Score
     addTweet(text: String!): Tweet
     createTweet(text: String!): Tweet

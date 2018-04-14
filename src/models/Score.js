@@ -4,8 +4,8 @@ const ScoreSchema = new Schema(
   {
     teamAName: String,
     teamBName: String,
-    teamAScore: String,
-    teamBScore: String
+    teamAScore: Number,
+    teamBScore: Number
   },
   {
     timestamps: true
