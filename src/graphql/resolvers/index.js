@@ -2,6 +2,7 @@ import fetch from "node-fetch";
 import GraphQLDate from "graphql-date";
 
 import Tweet from "../../models/Tweet";
+import Score from '../../models/Score';
 
 export const resolvers = {
   Date: GraphQLDate,
@@ -51,6 +52,15 @@ export const resolvers = {
         return tweet;
       } catch (error) {
         throw error;
+      }
+    },
+    createScore: (root, args, context) => {
+      try {
+        const score = await Score.create({ ...args});
+        
+        return score 
+      } catch (error) {
+        throw error
       }
     },
     updateTweet: async (root, { _id, ...rest }, context) => {

@@ -44,6 +44,16 @@ export const typeDefs = gql`
     updatedAt: Date!
   }
 
+  type Score {
+    _id: ID!
+    teamAName: String
+    teamBName: String
+    teamAScore: String
+    teamBScore: String
+    createdAt: Date!
+    updatedAt: Date!
+  }
+
   type Artist @cacheControl(maxAge: 60) {
     id: ID
     name: String
@@ -87,6 +97,12 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    createScore(
+      teamAName: String
+      teamBName: String
+      teamAScore: String
+      teamBScore: String
+    ): Score
     addTweet(text: String!): Tweet
     createTweet(text: String!): Tweet
     updateTweet(_id: ID!, text: String): Tweet
