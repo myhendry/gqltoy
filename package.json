@@ -8,8 +8,7 @@
   "scripts": {
     "start": "babel-node ./src/server.js",
     "client": "npm run start --prefix client",
-    "server":
-      "cross-env NODE_ENV=dev nodemon --exec babel-node ./src/server.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node ./src/server.js",
     "prettier":
       "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
   },
