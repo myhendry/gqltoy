@@ -1,6 +1,10 @@
 {
   "private": true,
   "main": "./src/server.js",
+  "engines": {
+    "node": "8.2.1",
+    "npm": "5.8.0"
+  },
   "scripts": {
     "start": "babel-node ./src/server.js",
     "client": "npm run start --prefix client",
@@ -9,10 +13,6 @@
     "prettier":
       "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
     "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
-  "engines": {
-    "node": "8.2.1",
-    "npm": "5.8.0"
   },
   "dependencies": {
     "apollo-engine": "^1.0.1",
