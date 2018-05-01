@@ -2,7 +2,7 @@
   "private": true,
   "main": "./src/server.js",
   "scripts": {
-    "server": "babel-node ./src/server.js",
+    "start": "babel-node ./src/server.js",
     "client": "npm run start --prefix client",
     "dev": "cross-env NODE_ENV=dev nodemon --exec babel-node ./src/server.js",
     "prettier":
