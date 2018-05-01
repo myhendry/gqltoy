@@ -12,7 +12,9 @@
       "cross-env NODE_ENV=dev nodemon --exec babel-node ./src/server.js",
     "prettier":
       "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "dependencies": {
     "apollo-engine": "^1.0.1",
