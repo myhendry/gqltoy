@@ -11,11 +11,14 @@ mongoose.set("debug", true); // debug mode on
 if (process.env.NODE_ENV === "production") {
   try {
     mongoose.connect(constants.MONGO_URI);
+    console.log("Connected to Cloud Mongo");
   } catch (err) {
     mongoose.createConnection(constants.MONGO_URI);
+    console.log("Connected to Cloud Mongo");
   }
 } else {
   mongoose.connect(constants.DB_URL);
+  console.log("Connected to Local Mongo");
 }
 
 mongoose.connection

@@ -77,7 +77,28 @@ export const typeDefs = gql`
     eye_color: String
     birth_year: String
     gender: String
+    homeworld: Planet
     films: [Film]
+    vehicles: [Vehicle]
+  }
+
+  type Planet {
+    name: String
+    diameter: String
+    climate: String
+    terrain: String
+    population: String
+    films: [Film]
+  }
+
+  type Vehicle {
+    name: String
+    model: String
+    manufacturer: String
+    length: String
+    crew: String
+    passengers: String
+    pilots: [Person]
   }
 
   type Film {
@@ -85,6 +106,7 @@ export const typeDefs = gql`
     episode_id: Int
     director: String
     producer: String
+    releaseDate: String
   }
 
   type Query {

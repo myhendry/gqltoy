@@ -4,29 +4,18 @@ import GraphQLDate from "graphql-date";
 import Tweet from "../../models/Tweet";
 import Score from "../../models/Score";
 
+const resolveFilms = person => {
+  const promises = person.films.map(async url => {
+    const res = await fetch(url);
+    return res.json();
+  });
+
+  return Promise.all(promises);
+};
+
 export const resolvers = {
   Date: GraphQLDate,
   Query: {
-    myFavoriteArtists: (root, args, context) => {
-      return Promise.all(
-        myFavoriteArtists.map(({ name, id }) => {
-          return fetch(
-            `https://app.ticketmaster.com/discovery/v2/attractions/${id}.json?apikey=${
-              context.secrets.TM_API_KEY
-            }`
-          )
-            .then(res => res.json())
-            .then(data => {
-              console.log("STUFF", data);
-              return Object.assign({ name, id }, data);
-            });
-        })
-      );
-    },
-    getPerson: async (root, { id }, context) => {
-      const response = await fetch(`https://swapi.co/api/people/${id}/`);
-      return response.json();
-    },
     getTweets: (root, args, context) => {
       try {
         const tweets = Tweet.find({}).sort({ createdAt: -1 });
@@ -50,6 +39,25 @@ export const resolvers = {
       } catch (error) {
         throw error;
       }
+    },
+    myFavoriteArtists: (root, args, context) => {
+      return Promise.all(
+        myFavoriteArtists.map(({ name, id }) => {
+          return fetch(
+            `https://app.ticketmaster.com/discovery/v2/attractions/${id}.json?apikey=${
+              context.secrets.TM_API_KEY
+            }`
+          )
+            .then(res => res.json())
+            .then(data => {
+              return Object.assign({ name, id }, data);
+            });
+        })
+      );
+    },
+    getPerson: async (root, { id }, context) => {
+      const response = await fetch(`https://swapi.co/api/people/${id}/`);
+      return response.json();
     }
   },
   Mutation: {
@@ -58,15 +66,6 @@ export const resolvers = {
         const tweet = await Tweet.create({ ...args });
 
         return tweet;
-      } catch (error) {
-        throw error;
-      }
-    },
-    createScore: async (root, args, context) => {
-      try {
-        const score = await Score.create({ ...args });
-
-        return score;
       } catch (error) {
         throw error;
       }
@@ -105,6 +104,15 @@ export const resolvers = {
       } catch (error) {
         throw error;
       }
+    },
+    createScore: async (root, args, context) => {
+      try {
+        const score = await Score.create({ ...args });
+
+        return score;
+      } catch (error) {
+        throw error;
+      }
     }
   },
   Artist: {
@@ -128,6 +136,34 @@ export const resolvers = {
   Event: {
     image: event => event.images[0].url,
     startDateTime: event => event.dates.start.dateTime
+  },
+  Person: {
+    films: resolveFilms,
+    vehicles: person => {
+      const promises = person.vehicles.map(async url => {
+        const res = await fetch(url);
+        return res.json();
+      });
+
+      return Promise.all(promises);
+    },
+    homeworld: async person => {
+      const res = await fetch(person.homeworld);
+      return res.json();
+    }
+  },
+  Planet: {
+    films: resolveFilms
+  },
+  Vehicle: {
+    pilots: vehicle => {
+      const promises = vehicle.pilots.map(async url => {
+        const res = await fetch(url);
+        return res.json();
+      });
+
+      return Promise.all(promises);
+    }
   }
 };
 

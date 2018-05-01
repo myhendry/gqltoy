@@ -4,8 +4,8 @@ import bodyParser from "body-parser";
 import { ApolloEngine } from "apollo-engine";
 import { makeExecutableSchema } from "graphql-tools";
 
-import CONSTANTS from "../src/config/constants";
 import "./config/db";
+import constants from "../src/config/constants";
 import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
 
@@ -32,7 +32,7 @@ const schema = makeExecutableSchema({
 });
 
 app.post(
-  "/graphql",
+  constants.GRAPHQL_PATH,
   bodyParser.json(),
   graphqlExpress({
     schema,
@@ -48,10 +48,15 @@ app.post(
 
 const gql = String.raw;
 
+// Using Route Handlers
+app.get("/thank", (req, res) => {
+  res.send({ greeting: "Hey friend!" });
+});
+
 app.get(
-  "/graphiql",
+  constants.GRAPHIQL_PATH,
   graphiqlExpress({
-    endpointURL: "/graphql"
+    endpointURL: constants.GRAPHQL_PATH
     // query: gql`
     //   query UpcomingEvents {
     //     myFavoriteArtists {
@@ -68,8 +73,6 @@ app.get(
 );
 
 app.use(express.static("public"));
-
-// const PORT = process.env.PORT || 3000;
 
 const engine = new ApolloEngine({
   apiKey: process.env.ENGINE_API_KEY,
@@ -92,12 +95,12 @@ const engine = new ApolloEngine({
 // Start the app
 engine.listen(
   {
-    port: CONSTANTS.PORT,
+    port: constants.PORT,
     expressApp: app
   },
   () => {
     console.log(
-      `Go to http://localhost:${CONSTANTS.PORT}/graphiql to run queries!`
+      `Go to http://localhost:${constants.PORT}/graphiql to run queries!`
     );
   }
 );
