@@ -8,8 +8,11 @@ import "./config/db";
 import constants from "../src/config/constants";
 import { typeDefs } from "./graphql/schema";
 import { resolvers } from "./graphql/resolvers";
+import middlewares from "../src/config/middlewares";
 
 const app = express();
+
+middlewares(app);
 
 require("dotenv").config();
 
@@ -34,16 +37,17 @@ const schema = makeExecutableSchema({
 app.post(
   constants.GRAPHQL_PATH,
   bodyParser.json(),
-  graphqlExpress({
+  graphqlExpress(req => ({
     schema,
     tracing: true,
     cacheControl: true,
     context: {
+      user: req.user,
       secrets: {
         TM_API_KEY: process.env.TM_API_KEY
       }
     }
-  })
+  }))
 );
 
 const gql = String.raw;

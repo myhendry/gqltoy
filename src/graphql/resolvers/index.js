@@ -3,6 +3,8 @@ import GraphQLDate from "graphql-date";
 
 import Tweet from "../../models/Tweet";
 import Score from "../../models/Score";
+import User from "../../models/User";
+import { requireAuth } from "../../services/auth";
 
 const resolveFilms = person => {
   const promises = person.films.map(async url => {
@@ -16,8 +18,9 @@ const resolveFilms = person => {
 export const resolvers = {
   Date: GraphQLDate,
   Query: {
-    getTweets: (root, args, context) => {
+    getTweets: async (root, args, { user }) => {
       try {
+        await requireAuth(user);
         const tweets = Tweet.find({}).sort({ createdAt: -1 });
         return tweets;
       } catch (error) {
@@ -28,6 +31,14 @@ export const resolvers = {
       try {
         const tweet = Tweet.findById(_id);
         return tweet;
+      } catch (error) {
+        throw error;
+      }
+    },
+    me: async (_, args, { user }) => {
+      try {
+        const me = await requireAuth(user);
+        return me;
       } catch (error) {
         throw error;
       }
@@ -61,6 +72,33 @@ export const resolvers = {
     }
   },
   Mutation: {
+    signup: async (_, { fullName, ...rest }) => {
+      try {
+        const [firstName, lastName] = fullName.split(" ");
+        const user = await User.create({ firstName, lastName, ...rest });
+        return {
+          token: user.createToken()
+        };
+      } catch (error) {
+        throw error;
+      }
+    },
+    login: async (_, { email, password }) => {
+      try {
+        const user = await User.findOne({ email });
+        if (!user) {
+          throw new Error("User not exist!");
+        }
+        if (!user.authenticateUser(password)) {
+          throw new Error("Password not match!");
+        }
+        return {
+          token: user.createToken()
+        };
+      } catch (error) {
+        throw error;
+      }
+    },
     addTweet: async (root, args, context) => {
       try {
         const tweet = await Tweet.create({ ...args });
