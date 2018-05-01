@@ -21,6 +21,7 @@ export const resolvers = {
     getTweets: async (root, args, { user }) => {
       try {
         await requireAuth(user);
+        // console.log("USER", user);
         const tweets = Tweet.find({}).sort({ createdAt: -1 });
         return tweets;
       } catch (error) {
