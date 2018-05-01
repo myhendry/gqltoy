@@ -89,7 +89,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 const engine = new ApolloEngine({
   apiKey: process.env.ENGINE_API_KEY,
