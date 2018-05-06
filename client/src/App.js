@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-import { compose, graphql } from "react-apollo";
 
-import { GET_TWEETS } from "./graphql/queries";
+import Board from "./components/Board";
 import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
   render() {
-    console.log(this.props);
-    const { loading, data: { getTweets } } = this.props;
-    console.log(getTweets);
     return (
       <div className="App">
         <header className="App-header">
@@ -24,15 +20,16 @@ class App extends Component {
             Read about this{" "}
             <a href="https://github.com/apollographql/ticketmaster-rest-api-wrapper">
               server on GitHub
-            </a>.
+            </a>
           </p>
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <Board />
       </div>
     );
   }
 }
 
-export default compose(graphql(GET_TWEETS))(App);
+export default App;
