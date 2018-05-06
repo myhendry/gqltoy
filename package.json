@@ -1,12 +1,13 @@
 {
   "private": true,
-  "main": "./src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "babel-node ./src/index.js",
+    "start": "babel-node index.js",
     "client": "npm run start --prefix client",
-    "server": "cross-env NODE_ENV=dev nodemon --exec babel-node ./src/index.js",
+    "server": "cross-env NODE_ENV=dev nodemon --exec babel-node index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "prettier": "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
+    "prettier":
+      "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
   },
   "dependencies": {
     "apollo-engine": "^1.0.1",

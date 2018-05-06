@@ -5,11 +5,11 @@ import { ApolloEngine } from "apollo-engine";
 import { makeExecutableSchema } from "graphql-tools";
 import cors from "cors";
 
-import "./config/db";
-import constants from "../src/config/constants";
-import { typeDefs } from "./graphql/schema";
-import { resolvers } from "./graphql/resolvers";
-import middlewares from "../src/config/middlewares";
+import "./src/config/db";
+import constants from "./src/config/constants";
+import { typeDefs } from "./src/graphql/schema";
+import { resolvers } from "./src/graphql/resolvers";
+import middlewares from "./src/config/middlewares";
 
 const app = express();
 
