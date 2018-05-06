@@ -3,6 +3,7 @@ import { graphqlExpress, graphiqlExpress } from "apollo-server-express";
 import bodyParser from "body-parser";
 import { ApolloEngine } from "apollo-engine";
 import { makeExecutableSchema } from "graphql-tools";
+import cors from "cors";
 
 import "./config/db";
 import constants from "../src/config/constants";
@@ -12,6 +13,7 @@ import middlewares from "../src/config/middlewares";
 
 const app = express();
 
+app.use(cors());
 middlewares(app);
 
 require("dotenv").config();
@@ -53,7 +55,7 @@ app.post(
 const gql = String.raw;
 
 // Using Route Handlers
-app.get("/thank", (req, res) => {
+app.get("/thanks", (req, res) => {
   res.send({ greeting: "Hey friend!" });
 });
 
@@ -110,7 +112,7 @@ const engine = new ApolloEngine({
   }
 });
 
-// Start the app
+// // Start the app
 engine.listen(
   {
     port: constants.PORT,

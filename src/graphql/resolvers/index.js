@@ -18,10 +18,11 @@ const resolveFilms = person => {
 export const resolvers = {
   Date: GraphQLDate,
   Query: {
-    getTweets: async (root, args, { user }) => {
+    getTweets: async (root, args, { user, secrets }) => {
       try {
-        await requireAuth(user);
         // console.log("USER", user);
+        // console.log("secrets", secrets);
+        // await requireAuth(user);
         const tweets = Tweet.find({}).sort({ createdAt: -1 });
         return tweets;
       } catch (error) {
