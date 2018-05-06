@@ -6,6 +6,8 @@
     "client": "npm run start --prefix client",
     "server": "cross-env NODE_ENV=dev nodemon --exec babel-node index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild":
+      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "prettier":
       "prettier --single-quote --print-width 80 --trailing-comma all --write 'src/**/*.js'"
   },
