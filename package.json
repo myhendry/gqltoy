@@ -20,7 +20,7 @@
     "cors": "^2.8.4",
     "cross-env": "^5.1.4",
     "dotenv": "^5.0.1",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "graphql": "0.13.0",
     "graphql-date": "^1.0.3",
     "graphql-tools": "2.20.2",
